@@ -22,6 +22,7 @@ tree_node_t *currentblock = NULL;
 int    size_left;
 tree_node_t *free_list = NULL;
 
+// create a return a pointer to a new node
 tree_node_t *get_node()
 { tree_node_t *tmp;
   if( free_list != NULL )
@@ -40,10 +41,13 @@ tree_node_t *get_node()
   return( tmp );
 }
 
+// free up a node
 void return_node(tree_node_t *node)
 {  node->left = free_list;
    free_list = node;
 }
+
+// create a new tree and return a pointer to the root
 tree_node_t *create_tree(void)
 {  tree_node_t *tmp_node;
    tmp_node = get_node();
@@ -51,6 +55,7 @@ tree_node_t *create_tree(void)
    return( tmp_node );
 }
 
+// do a left rotation to balance the tree
 void left_rotation(tree_node_t *n)
 {  tree_node_t *tmp_node;
    key_t        tmp_key;
@@ -66,6 +71,7 @@ void left_rotation(tree_node_t *n)
    n->left->key   = tmp_key;
 }
 
+// do a right rotation to balance the tree
 void right_rotation(tree_node_t *n)
 {  tree_node_t *tmp_node;
    key_t        tmp_key;
@@ -81,6 +87,7 @@ void right_rotation(tree_node_t *n)
    n->right->key   = tmp_key;
 }
 
+// find and return a pointer to a node with a given key
 object_t *find(tree_node_t *tree, key_t query_key)
 {  tree_node_t *tmp_node;
    if( tree->left == NULL )
@@ -100,6 +107,7 @@ object_t *find(tree_node_t *tree, key_t query_key)
    }
 }
 
+// insert a new node into a tree
 int insert(tree_node_t *tree, key_t new_key, object_t *new_object)
 {  tree_node_t *tmp_node;
    tree_node_t *tmp_node_up;
@@ -212,6 +220,7 @@ int insert(tree_node_t *tree, key_t new_key, object_t *new_object)
    return( 0 );
 }
 
+// delete a node from the tree
 object_t *delete(tree_node_t *tree, key_t delete_key)
 {  tree_node_t *tmp_node, *upper_node, *other_node;
    object_t *deleted_object; 
@@ -309,6 +318,7 @@ object_t *delete(tree_node_t *tree, key_t delete_key)
    }
 }
 
+// print out the contents of the tree
 void check_tree( tree_node_t *tr, int depth, int lower, int upper )
 {  if( tr->left == NULL )
    {  printf("Tree Empty\n"); return; }
